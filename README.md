@@ -141,7 +141,6 @@ http://rizy.ir/4EbW
 #### English guide to buying servers and installing script
 https://www.reddit.com/r/Telegram/comments/95m5vi/how_to_deploy_mtproto_proxy_server_on_centos/
 ### Proxy Projects
-[Python Proxy](https://github.com/alexbers/mtprotoproxy)
 
 [Official C Proxy](https://github.com/TelegramMessenger/MTProxy)
 
@@ -149,5 +148,4 @@ https://www.reddit.com/r/Telegram/comments/95m5vi/how_to_deploy_mtproto_proxy_se
 
 [Erlang Proxy](https://github.com/seriyps/mtproto_proxy)
 ### Donations
-You can donate to me through bitcoin at `1XDgEkpnkJ7hC8Kwv5adfaDC1Z3FrkwsK`, Ethereum at `0xbb527a28B76235E1C125206B7CcFF944459b4894`, ZCash 
-at `t1ZKYrYZCjxDYvo6mQaLZi3gNe2a6MydUo3` and Bitcoin Gold at `GcNgxfyR3nnAsD3Nhuckvq14sXYuDFkK9P`
+
