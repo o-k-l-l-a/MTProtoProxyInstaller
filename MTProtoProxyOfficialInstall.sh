@@ -2,7 +2,7 @@
 function GetRandomPort() {
 	if ! [ "$INSTALLED_LSOF" == true ]; then
 		echo "Installing lsof package. Please wait."
-		if [[ $distro =~ "CentOS" ]]; then
+		if [[ $distro =~ "AlmaLinux" ]]; then
 			yum -y -q install lsof
 		elif [[ $distro =~ "Ubuntu" ]] || [[ $distro =~ "Debian" ]]; then
 			apt-get -y install lsof >/dev/null
@@ -267,7 +267,7 @@ if [ -d "/opt/MTProxy" ]; then
 		;;
 	#Firewall rules
 	8)
-		if [[ $distro =~ "CentOS" ]]; then
+		if [[ $distro =~ "AlmaLinux" ]]; then
 			echo "firewall-cmd --zone=public --add-port=$PORT/tcp"
 			echo "firewall-cmd --runtime-to-permanent"
 		elif [[ $distro =~ "Ubuntu" ]]; then
@@ -278,7 +278,7 @@ if [ -d "/opt/MTProxy" ]; then
 		fi
 		read -r -p "Do you want to apply these rules?[y/n] " -e -i "y" OPTION
 		if [ "$OPTION" == "y" ] || [ "$OPTION" == "Y" ]; then
-			if [[ $distro =~ "CentOS" ]]; then
+			if [[ $distro =~ "AlmaLinux" ]]; then
 				firewall-cmd --zone=public --add-port="$PORT"/tcp
 				firewall-cmd --runtime-to-permanent
 			elif [[ $distro =~ "Ubuntu" ]]; then
@@ -297,7 +297,7 @@ if [ -d "/opt/MTProxy" ]; then
 			cd /opt/MTProxy || exit 2
 			systemctl stop MTProxy
 			systemctl disable MTProxy
-			if [[ $distro =~ "CentOS" ]]; then
+			if [[ $distro =~ "AlmaLinux" ]]; then
 				firewall-cmd --remove-port="$PORT"/tcp
 				firewall-cmd --runtime-to-permanent
 			elif [[ $distro =~ "Ubuntu" ]]; then
@@ -309,7 +309,7 @@ if [ -d "/opt/MTProxy" ]; then
 			rm -rf /opt/MTProxy /etc/systemd/system/MTProxy.service
 			systemctl daemon-reload
 			sed -i '\|cd /opt/MTProxy/objs/bin && bash updater.sh|d' /etc/crontab
-			if [[ $distro =~ "CentOS" ]]; then
+			if [[ $distro =~ "AlmaLinux" ]]; then
 				systemctl restart crond
 			elif [[ $distro =~ "Ubuntu" ]] || [[ $distro =~ "Debian" ]]; then
 				systemctl restart cron
@@ -506,7 +506,7 @@ else
 	clear
 fi
 #Now install packages
-if [[ $distro =~ "CentOS" ]]; then
+if [[ $distro =~ "AlmaLinux" ]]; then
 	yum -y install epel-release
 	yum -y install openssl-devel zlib-devel curl ca-certificates sed cronie vim-common
 	yum -y groupinstall "Development Tools"
@@ -551,7 +551,7 @@ echo "PUBLIC_IP=\"$PUBLIC_IP\"" >>mtconfig.conf
 echo "PRIVATE_IP=\"$PRIVATE_IP\"" >>mtconfig.conf
 #Setup firewall
 echo "Setting firewalld rules"
-if [[ $distro =~ "CentOS" ]]; then
+if [[ $distro =~ "AlmaLinux" ]]; then
 	SETFIREWALL=true
 	if ! yum -q list installed firewalld &>/dev/null; then
 		echo ""
@@ -647,7 +647,7 @@ systemctl start MTProxy
 echo "Updater runned at $(date). Exit codes of getProxySecret and getProxyConfig are $STATUS_SECRET and $STATUS_CONF" >> updater.log' >/opt/MTProxy/objs/bin/updater.sh
 	echo "" >>/etc/crontab
 	echo "0 0 * * * root cd /opt/MTProxy/objs/bin && bash updater.sh" >>/etc/crontab
-	if [[ $distro =~ "CentOS" ]]; then
+	if [[ $distro =~ "AlmaLinux" ]]; then
 		systemctl restart crond
 	elif [[ $distro =~ "Ubuntu" ]] || [[ $distro =~ "Debian" ]]; then
 		systemctl restart cron
